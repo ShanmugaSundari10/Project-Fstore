@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+body{
+    padding: 20px;
+}
+
+h3{
+    font-weight: 23px;
+    margin: 15px 0;
+    background-color: tomato;
+    text-transform: uppercase;
+     letter-spacing: 1px;
+}
+form{
+    width: 600px;
+}
+form .form-group{
+    align-items: center;
+    display: flex;
+}
+form .form-group label{
+    font-weight: 500;
+    text-transform: uppercase;
+    min-width: 100px;
+}
+
+form .form-group input{
+    font-size: 16px;
+    padding: 5px 18px;
+    border: none;
+    outline: none;
+    background-color: #f1f1f1;
+    border-radius: 2px;
+    margin: 10px 5px;
+}
+
+form button{
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    border: none;
+    gap: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: tomato;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 15px 0
+}
+
+table{
+    border: 1px solid teal;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+table thead tr{
+    background-color: teal;
+    color: white;
+    border-color: tomato;
+}
+table thead tr th{
+    border-color: teal;
+    font-weight: 400;
+}
+table td,
+table th{
+    border: 1px solid teal;
+    padding: 5px 10px;
+}
+table td button{
+    border:none;
+    outline: none;
+    color:#fff;
+    font-size: 18px;
+    padding: 5px 8px;
+    margin: 0 auto;
+    display: block;
+    background-color: teal;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.btn-button{
+    background-color: red;
+}
