@@ -3,21 +3,27 @@ import { getFirestore, doc, collection, addDoc, getDocs  } from "https://www.gst
 
 // Initialize Firebase
 // Import Firebase modules (if using Firebase SDK 9 or above)
-const appSettings = {
-    databaseURL: "https://tint-f9a50-default-rtdb.firebaseio.com"
-};
-const firebaseConfig = {
-    apiKey: "AIzaSyCZxXj6sLI_kjnwgGEnNtsRJOMBAtaZUHM",
-    authDomain: "tint-f9a50.firebaseapp.com",
-    databaseURL: "https://tint-f9a50-default-rtdb.firebaseio.com",
-    projectId: "tint-f9a50",
-    storageBucket: "tint-f9a50.firebasestorage.app",
-    messagingSenderId: "1054758787608",
-    appId: "1:1054758787608:web:1f6b1a18a3941d1727016d",
-    measurementId: "G-E3HHXSLJ1L"
+
+  // Import the functions you need from the SDKs you need
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBAVLzvvLF8o_CMJjxmy8l7ry9HhupB3RY",
+    authDomain: "fstore-form.firebaseapp.com",
+    projectId: "fstore-form",
+    storageBucket: "fstore-form.firebasestorage.app",
+    messagingSenderId: "571545274959",
+    appId: "1:571545274959:web:98721d98827fe11fd6383a"
   };
 
-const apps = initializeApp(appSettings);
+  // Initialize Firebase
+const apps = initializeApp(firebaseConfig);
+
+
+// const apps = initializeApp(appSettings);
 const database = getFirestore(apps);
 // getting id reference
 const idEl = document.querySelector("#id");
