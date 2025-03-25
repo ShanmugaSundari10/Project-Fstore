@@ -36,7 +36,7 @@ const btn_submit = document.querySelector("#btn_submit");
 
 // adding values in to cloud firestore
 async function Automatic_ID() {
-    var ref = collection(database, "Users");
+    var ref = collection(database, "Users", );
     const docRef = await addDoc(
         ref, {
             name: nameEl.value.trim(),
@@ -54,8 +54,26 @@ async function Automatic_ID() {
 //Assigning funciton to button
 btn_submit.addEventListener("click",function(e){
     e.preventDefault();
+    if(!nameEl.value.trim() || !ageEl.value.trim() || !cityEl.value.trim())
+        {
+            alert("please fill all details");
+            return;
+        }
     Automatic_ID();
+    Clear_details();
+
+    console.log(docRef);
 });
+
+function Clear_details(){
+    nameEl.value ="";
+    ageEl.value = "";
+    cityEl.value ="";
+}
+
+async function Get_Document(){
+   var ref = doc(database, "Users",)
+}
 
 
 // frm.addEventListener("submit", function(e){
@@ -66,3 +84,27 @@ btn_submit.addEventListener("click",function(e){
 //        city: cityEl.value.trim(),
 //     });
 // })
+
+// if (snapshot.exists()){
+//     let userArray = Object.entries(snapshot.val());
+//     console.log(userArray);
+//     for(let i=0; i<userArray.length; i++){
+//       let currentUser = userArray[i]
+//       console.log(currentUser);
+//       let currentUserId = currentUser[0];
+//       console.log(currentUserId);
+
+//       let currentUserValues = currentUser[1];
+//       tblBodyEl.innerHTML += 
+//        `<tr>
+//         <td>${i+1}</td>
+//         <td>${currentUserValues.name}</td>
+//         <td>${currentUserValues.age}</td>
+//         <td>${currentUserValues.city}</td>
+//         <td><button class="btn-edit" data-id =${currentUserId}><ion-icon name="create"></ion-icon></button></td>
+//         <td><button class="btn-delete" data-id =${currentUserId}><ion-icon name="trash"></ion-icon></button></td>
+//         </tr>` ;
+//     }     
+// } else {
+//     console.log("No data Found");
+// }
