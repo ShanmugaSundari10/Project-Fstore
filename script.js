@@ -32,6 +32,7 @@ const ageEl = document.querySelector("#age");
 const cityEl = document.querySelector("#city");
 const frm = document.querySelector("#frm");
 const tblBodyEl = document.querySelector("#tblBody");
+const btn_submit = document.querySelector("#btn_submit");
 
 // adding values in to cloud firestore
 async function Automatic_ID() {
@@ -51,7 +52,7 @@ async function Automatic_ID() {
       });
 }
 //Assigning funciton to button
-frm.addEventListener("submit",function(e){
+btn_submit.addEventListener("click",function(e){
     e.preventDefault();
     Automatic_ID();
 });
