@@ -43,6 +43,7 @@ async function Automatic_ID() {
             city: cityEl.value.trim(),
         });
         console.log("Document written with ID: ", docRef.id);
+
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -66,11 +67,10 @@ function Clear_details(){
     ageEl.value = "";
     cityEl.value ="";
 }
-
-async function Get_Document(){
-   var ref = doc(database, "Users",)
-}
-
+const querySnapshot = await getDocs(collection(database, "users"));
+querySnapshot.forEach((doc) => {
+  console.log(`${doc.id} => ${doc.data()}`);
+});
 
 // frm.addEventListener("submit", function(e){
 //     e.preventDefault();
