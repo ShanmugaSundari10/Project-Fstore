@@ -46,11 +46,11 @@ async function Automatic_ID() {
     )
     .then(() => {
         alert("Data saved successfully!");
-        console.log(docRef);
       })
       .catch((error) => {
         alert("Error saving data: ", error);
       });
+      console.log(docRef);
 }
 //Assigning funciton to button
 btn_submit.addEventListener("click",function(e){
