@@ -36,21 +36,17 @@ const btn_submit = document.querySelector("#btn_submit");
 
 // adding values in to cloud firestore
 async function Automatic_ID() {
-    var ref = collection(database, "Users");
-    const docRef = await addDoc(
-        ref, {
+    try {
+        const docRef = await addDoc(collection(database, "users"), {
             name: nameEl.value.trim(),
             age: ageEl.value.trim(),
             city: cityEl.value.trim(),
-        }
-    )
-    .then(() => {
-        alert("Data saved successfully!");
-       
-      })
-      .catch((error) => {
-        alert("Error saving data: ", error);
-      });
+        });
+        console.log("Document written with ID: ", docRef.id);
+
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
       
 }
 //Assigning funciton to button
@@ -73,9 +69,10 @@ function Clear_details(){
     cityEl.value ="";
 }
 
-async function Get_Document(){
-   var ref = doc(database, "Users",)
-}
+const querySnapshot = await getDocs(collection(database, "users"));
+querySnapshot.forEach((doc) => {
+  console.log(`${doc.id} => ${doc.data()}`);
+});
 
 
 // frm.addEventListener("submit", function(e){
