@@ -51,7 +51,7 @@ async function Automatic_ID() {
       .catch((error) => {
         alert("Error saving data: ", error);
       });
-      console.log(docRef);
+      console.log(docRef.id);
 }
 //Assigning funciton to button
 btn_submit.addEventListener("click",function(e){
