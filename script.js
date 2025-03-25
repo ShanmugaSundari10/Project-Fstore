@@ -51,7 +51,10 @@ async function Automatic_ID() {
       });
 }
 //Assigning funciton to button
-frm.addEventListener("submit",Automatic_ID());
+frm.addEventListener("submit",function(e){
+    e.preventDefault();
+    Automatic_ID();
+});
 
 
 // frm.addEventListener("submit", function(e){
