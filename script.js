@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
-import { getFirestore, doc, collection, addDoc, getDocs,onSnapshot } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+import { getFirestore, doc, collection, addDoc, getDocs,onSnapshot,deleteDoc  } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
 
 // Initialize Firebase
 // Import Firebase modules (if using Firebase SDK 9 or above)
@@ -34,40 +34,6 @@ const frm = document.querySelector("#frm");
 const tblBodyEl = document.querySelector("#tblBody");
 const btn_submit = document.querySelector("#btn_submit");
 
-// // adding values in to cloud firestore
-// async function Automatic_ID() {
-//     try {
-//         const docRef = await addDoc(collection(database, "users"), {
-//             name: nameEl.value.trim(),
-//             age: ageEl.value.trim(),
-//             city: cityEl.value.trim(),
-//         });
-//         console.log("Document written with ID: ", docRef.id);
-
-//       } catch (e) {
-//         console.error("Error adding document: ", e);
-//       }
-      
-// }
-// //Assigning funciton to button
-// btn_submit.addEventListener("click",function(e){
-//     e.preventDefault();
-//     if(!nameEl.value.trim() || !ageEl.value.trim() || !cityEl.value.trim())
-//         {
-//             alert("please fill all details");
-//             return;
-//         }
-//     Automatic_ID();
-//     Clear_details();
-    
-// });
-
-// function Clear_details(){
-//     nameEl.value ="";
-//     ageEl.value = "";
-//     cityEl.value ="";
-// }
-
 btn_submit.addEventListener("click", async function (e) {
   e.preventDefault();
 
@@ -75,7 +41,15 @@ btn_submit.addEventListener("click", async function (e) {
     alert("Please fill in all details.");
     return;
   }
-
+  if (idEl.value){
+    setDoc(collection(database,"Users/"+idEl.value), {
+        name: nameEl.value.trim(),
+        age: ageEl.value.trim(),
+        city: cityEl.value.trim(),
+    });
+    clearEl();
+    return;
+}
   try {
     // Add new user document to the "Users" collection
     const docRef = await addDoc(collection(database, "Users"), {
@@ -98,13 +72,14 @@ function Clear_details() {
   nameEl.value = "";
   ageEl.value = "";
   cityEl.value = "";
+  idEl.value ="";
 }
 
 // Real-time updates using onSnapshot
 const usersRef = collection(database, "Users");  // Reference to "Users" collection
 
 onSnapshot(usersRef, function(snapshot) {
-  const usersArray = [];  // Array to hold user data
+  const usersArray = [];  
 
   snapshot.forEach(doc => {
     // Push each user's data into the array with document id
@@ -112,11 +87,7 @@ onSnapshot(usersRef, function(snapshot) {
   });
 
   console.log(usersArray);
-
-  // Clear existing table body content
   tblBodyEl.innerHTML = "";
-
-  // Populate table with user data
   usersArray.forEach((user, index) => {
     tblBodyEl.innerHTML += `
       <tr>
@@ -129,3 +100,30 @@ onSnapshot(usersRef, function(snapshot) {
       </tr>`;
   });
 });
+
+
+document.addEventListener("click", function(e){
+  if(e.target.classList.contains("btn-edit")){
+      const id = e.target.dataset.id;
+      console.log(e.target);
+      console.log(e.target.dataset);
+      console.log(id);
+
+      const tdElement = e.target.closest("tr").children;
+      idEl.value = id;
+      nameEl.value = tdElement[1].textContent;
+      ageEl.value = tdElement[2].textContent;
+      cityEl.value = tdElement[3].textContent;
+
+      } else if(e.target.classList.contains("btn-delete")){
+      if(confirm("Are you sure to Delete?")){
+          const id = e.target.dataset.id;
+          console.log(e.target);
+          console.log(e.target.dataset);
+          console.log(id);
+       let data = deleteDoc(doc(database, `Users/${id}`));
+      // let data = collection(database, `);
+       console.log(data);
+      }
+  }
+})
