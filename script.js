@@ -59,7 +59,7 @@ btn_submit.addEventListener("click",function(e){
         }
     Automatic_ID();
     Clear_details();
-
+    Table_Creation();
     
 });
 
@@ -68,12 +68,12 @@ function Clear_details(){
     ageEl.value = "";
     cityEl.value ="";
 }
-
+function Table_Creation(){
 const querySnapshot = await getDocs(collection(database, "users"));
 querySnapshot.forEach((doc) => {
   console.log(`${doc.id} => ${doc.data()}`);
 });
-
+}
 
 // frm.addEventListener("submit", function(e){
 //     e.preventDefault();
