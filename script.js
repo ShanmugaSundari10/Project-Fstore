@@ -36,17 +36,7 @@ const btn_submit = document.querySelector("#btn_submit");
 
 // adding values in to cloud firestore
 async function Automatic_ID() {
-    try {
-        const docRef = await addDoc(collection(database, "users"), {
-            name: nameEl.value.trim(),
-            age: ageEl.value.trim(),
-            city: cityEl.value.trim(),
-        });
-        console.log("Document written with ID: ", docRef.id);
-
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
+    
 }
 //Assigning funciton to button
 btn_submit.addEventListener("click",function(e){
@@ -56,7 +46,26 @@ btn_submit.addEventListener("click",function(e){
             alert("please fill all details");
             return;
         }
-    Automatic_ID();
+        if (idEl.value){
+          // set(ref(database,"users/"+idEl.value), {
+          //     name: nameEl.value.trim(),
+          //     age: ageEl.value.trim(),
+          //     city: cityEl.value.trim(),
+          // });
+          // clearEl();
+          return;
+      }
+      try {
+          const docRef = addDoc(collection(database, "Users"), {
+              name: nameEl.value.trim(),
+              age: ageEl.value.trim(),
+              city: cityEl.value.trim(),
+          });
+          console.log("Document written with ID: ", docRef.id);
+  
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
     Clear_details();
 
     
@@ -67,13 +76,14 @@ function Clear_details(){
     ageEl.value = "";
     cityEl.value ="";
 }
-const querySnapshot = await getDocs(collection(database, "users"));
+const querySnapshot = await getDocs(collection(database, "Users"));
 querySnapshot.forEach((doc) => {
   console.log(`${doc.id} => ${doc.data()}`);
 });
-
-onSnapshot(docRef, function(snapshot){
+const usersRef = collection(database, "Users");
+onSnapshot(usersRef, function(snapshot){
     if(snapshot.exists()){
+      // const querySnapshot = getDocs(collection(database, "Users"));
       let userArray = Object.entries(snapshot.val());
         console.log(userArray);
     }
