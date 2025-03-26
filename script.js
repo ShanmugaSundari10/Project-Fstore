@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
-import { getFirestore, doc, collection, addDoc, getDocs  } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+import { getFirestore, doc, collection, addDoc, getDocs, onSnapshot  } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
 
 // Initialize Firebase
 // Import Firebase modules (if using Firebase SDK 9 or above)
@@ -72,6 +72,12 @@ querySnapshot.forEach((doc) => {
   console.log(`${doc.id} => ${doc.data()}`);
 });
 
+onSnapshot(docRef, function(snapshot){
+    if(snapshot.exists()){
+      let userArray = Object.entries(snapshot.val());
+        console.log(userArray);
+    }
+})
 // frm.addEventListener("submit", function(e){
 //     e.preventDefault();
 //     set(userListInDB,{
