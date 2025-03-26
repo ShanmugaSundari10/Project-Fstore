@@ -79,14 +79,37 @@ function Clear_details(){
 const querySnapshot = await getDocs(collection(database, "Users"));
 querySnapshot.forEach((doc) => {
   console.log(`${doc.id} => ${doc.data()}`);
-});
-const usersRef = collection(database, "Users");
-onSnapshot(usersRef, function(snapshot){
-    // if(snapshot.exists()){
-      // const querySnapshot = getDocs(collection(database, "Users"));
-      let userArray = Object.entries(snapshot.val());
-        console.log(userArray);
-    // }
-})
+  // const UserArray = Object.entries(querySnapshot.val())
+  onSnapshot(querySnapshot, function(snapshot) {
+    const usersArray = [];  // Initialize an empty array to store the user data
+
+    snapshot.forEach(doc => {
+        // Convert the document data to an object and push it to the array
+        usersArray.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Log the array of user data
+    console.log(usersArray);
+
+  tblBodyEl.innerHTML += 
+           `<tr>
+            <td>${i+1}</td>
+            <td>${currentUserValues.name}</td>
+            <td>${currentUserValues.age}</td>
+            <td>${currentUserValues.city}</td>
+            <td><button class="btn-edit" data-id =${currentUserId}><ion-icon name="create"></ion-icon></button></td>
+            <td><button class="btn-delete" data-id =${currentUserId}><ion-icon name="trash"></ion-icon></button></td>
+            </tr>` ;
+          });
+          });
+
+// const usersRef = collection(database, "Users");
+// onSnapshot(usersRef, function(snapshot){
+//     // if(snapshot.exists()){
+//       // const querySnapshot = getDocs(collection(database, "Users"));
+//       let userArray = Object.entries(snapshot.val());
+//         console.log(userArray);
+//     // }
+// })
 
 
