@@ -88,35 +88,5 @@ onSnapshot(usersRef, function(snapshot){
         console.log(userArray);
     // }
 })
-// frm.addEventListener("submit", function(e){
-//     e.preventDefault();
-//     set(userListInDB,{
-//        name: nameEl.value.trim(),
-//        age: ageEl.value.trim(),
-//        city: cityEl.value.trim(),
-//     });
-// })
 
-// if (snapshot.exists()){
-//     let userArray = Object.entries(snapshot.val());
-//     console.log(userArray);
-//     for(let i=0; i<userArray.length; i++){
-//       let currentUser = userArray[i]
-//       console.log(currentUser);
-//       let currentUserId = currentUser[0];
-//       console.log(currentUserId);
 
-//       let currentUserValues = currentUser[1];
-//       tblBodyEl.innerHTML += 
-//        `<tr>
-//         <td>${i+1}</td>
-//         <td>${currentUserValues.name}</td>
-//         <td>${currentUserValues.age}</td>
-//         <td>${currentUserValues.city}</td>
-//         <td><button class="btn-edit" data-id =${currentUserId}><ion-icon name="create"></ion-icon></button></td>
-//         <td><button class="btn-delete" data-id =${currentUserId}><ion-icon name="trash"></ion-icon></button></td>
-//         </tr>` ;
-//     }     
-// } else {
-//     console.log("No data Found");
-// }
