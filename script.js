@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
-import { getFirestore, doc, collection, addDoc, getDocs,onSnapshot,deleteDoc  } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+import { getFirestore, doc, collection, addDoc, getDocs,onSnapshot,deleteDoc, updateDoc  } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
 
 // Initialize Firebase
 // Import Firebase modules (if using Firebase SDK 9 or above)
@@ -36,13 +36,13 @@ const btn_submit = document.querySelector("#btn_submit");
 
 btn_submit.addEventListener("click", async function (e) {
   e.preventDefault();
-
+  const usersRef = collection(database, "Users");
   if (!nameEl.value.trim() || !ageEl.value.trim() || !cityEl.value.trim()) {
     alert("Please fill in all details.");
     return;
   }
   if (idEl.value){
-    setDoc(collection(database,"Users/"+idEl.value), {
+    updateDoc(doc(database,"Users/"+idEl.value), {
         name: nameEl.value.trim(),
         age: ageEl.value.trim(),
         city: cityEl.value.trim(),
