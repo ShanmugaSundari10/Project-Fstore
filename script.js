@@ -34,82 +34,98 @@ const frm = document.querySelector("#frm");
 const tblBodyEl = document.querySelector("#tblBody");
 const btn_submit = document.querySelector("#btn_submit");
 
-// adding values in to cloud firestore
-async function Automatic_ID() {
-    try {
-        const docRef = await addDoc(collection(database, "users"), {
-            name: nameEl.value.trim(),
-            age: ageEl.value.trim(),
-            city: cityEl.value.trim(),
-        });
-        console.log("Document written with ID: ", docRef.id);
+// // adding values in to cloud firestore
+// async function Automatic_ID() {
+//     try {
+//         const docRef = await addDoc(collection(database, "users"), {
+//             name: nameEl.value.trim(),
+//             age: ageEl.value.trim(),
+//             city: cityEl.value.trim(),
+//         });
+//         console.log("Document written with ID: ", docRef.id);
 
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
+//       } catch (e) {
+//         console.error("Error adding document: ", e);
+//       }
       
-}
-//Assigning funciton to button
-btn_submit.addEventListener("click",function(e){
-    e.preventDefault();
-    if(!nameEl.value.trim() || !ageEl.value.trim() || !cityEl.value.trim())
-        {
-            alert("please fill all details");
-            return;
-        }
-    Automatic_ID();
-    Clear_details();
-    
-});
-
-function Clear_details(){
-    nameEl.value ="";
-    ageEl.value = "";
-    cityEl.value ="";
-}
-
-const querySnapshot = await getDocs(collection(database, "users"));
-querySnapshot.forEach((doc) => {
-  console.log(`${doc.id} => ${doc.data()}`);
-});
-
-onSnapshot(docRef, function(snapshot){
-  if(snapshot.exists()){
-    let userArray = Object.entries(snapshot.val());
-    console.log(userArray);
-  }
-})
-
-
-// frm.addEventListener("submit", function(e){
-//     e.preventDefault();
-//     set(userListInDB,{
-//        name: nameEl.value.trim(),
-//        age: ageEl.value.trim(),
-//        city: cityEl.value.trim(),
-//     });
-// })
-
-// if (snapshot.exists()){
-//     let userArray = Object.entries(snapshot.val());
-//     console.log(userArray);
-//     for(let i=0; i<userArray.length; i++){
-//       let currentUser = userArray[i]
-//       console.log(currentUser);
-//       let currentUserId = currentUser[0];
-//       console.log(currentUserId);
-
-//       let currentUserValues = currentUser[1];
-//       tblBodyEl.innerHTML += 
-//        `<tr>
-//         <td>${i+1}</td>
-//         <td>${currentUserValues.name}</td>
-//         <td>${currentUserValues.age}</td>
-//         <td>${currentUserValues.city}</td>
-//         <td><button class="btn-edit" data-id =${currentUserId}><ion-icon name="create"></ion-icon></button></td>
-//         <td><button class="btn-delete" data-id =${currentUserId}><ion-icon name="trash"></ion-icon></button></td>
-//         </tr>` ;
-//     }     
-// } else {
-//     console.log("No data Found");
 // }
+// //Assigning funciton to button
+// btn_submit.addEventListener("click",function(e){
+//     e.preventDefault();
+//     if(!nameEl.value.trim() || !ageEl.value.trim() || !cityEl.value.trim())
+//         {
+//             alert("please fill all details");
+//             return;
+//         }
+//     Automatic_ID();
+//     Clear_details();
+    
+// });
+
+// function Clear_details(){
+//     nameEl.value ="";
+//     ageEl.value = "";
+//     cityEl.value ="";
+// }
+
+btn_submit.addEventListener("click", async function (e) {
+  e.preventDefault();
+
+  if (!nameEl.value.trim() || !ageEl.value.trim() || !cityEl.value.trim()) {
+    alert("Please fill in all details.");
+    return;
+  }
+
+  try {
+    // Add new user document to the "Users" collection
+    const docRef = await addDoc(collection(database, "Users"), {
+      name: nameEl.value.trim(),
+      age: ageEl.value.trim(),
+      city: cityEl.value.trim(),
+    });
+
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+
+  // Clear the form after submission
+  Clear_details();
+});
+
+// Function to clear form fields
+function Clear_details() {
+  nameEl.value = "";
+  ageEl.value = "";
+  cityEl.value = "";
+}
+
+// Real-time updates using onSnapshot
+const usersRef = collection(database, "Users");  // Reference to "Users" collection
+
+onSnapshot(usersRef, function(snapshot) {
+  const usersArray = [];  // Array to hold user data
+
+  snapshot.forEach(doc => {
+    // Push each user's data into the array with document id
+    usersArray.push({ id: doc.id, ...doc.data() });
+  });
+
+  console.log(usersArray);
+
+  // Clear existing table body content
+  tblBodyEl.innerHTML = "";
+
+  // Populate table with user data
+  usersArray.forEach((user, index) => {
+    tblBodyEl.innerHTML += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${user.name}</td>
+        <td>${user.age}</td>
+        <td>${user.city}</td>
+        <td><button class="btn-edit" data-id="${user.id}"><ion-icon name="create"></ion-icon></button></td>
+        <td><button class="btn-delete" data-id="${user.id}"><ion-icon name="trash"></ion-icon></button></td>
+      </tr>`;
+  });
+});
