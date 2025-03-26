@@ -47,7 +47,7 @@ btn_submit.addEventListener("click", async function (e) {
         age: ageEl.value.trim(),
         city: cityEl.value.trim(),
     });
-    clearEl();
+    Clear_details();
     return;
 }
   try {

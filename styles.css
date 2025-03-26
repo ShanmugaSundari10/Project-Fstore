@@ -84,6 +84,11 @@ table td button{
     border-radius: 3px;
     cursor: pointer;
 }
-.btn-button{
+.btn-delete{
     background-color: red;
+}
+
+.btn-delete ion-icon,
+.btn-edit ion-icon{
+    pointer-events: none;
 }
