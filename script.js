@@ -82,11 +82,11 @@ querySnapshot.forEach((doc) => {
 });
 const usersRef = collection(database, "Users");
 onSnapshot(usersRef, function(snapshot){
-    if(snapshot.exists()){
+    // if(snapshot.exists()){
       // const querySnapshot = getDocs(collection(database, "Users"));
       let userArray = Object.entries(snapshot.val());
         console.log(userArray);
-    }
+    // }
 })
 // frm.addEventListener("submit", function(e){
 //     e.preventDefault();
